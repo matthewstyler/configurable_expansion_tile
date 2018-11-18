@@ -1,9 +1,6 @@
 # configurable_expansion_tile
 
-A new Flutter package project.
+A configurable Expansion Tile edited from the flutter material implementation
+that allows for customization of most of the behaviour and components. Includes providing colours,
+replacement widgets on expansion, and animating preceding/following widgets relative to the header
 
-## Getting Started
-
-For help getting started with Flutter, view our online [documentation](https://flutter.io/).
-
-For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).

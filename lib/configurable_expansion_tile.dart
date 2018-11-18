@@ -205,6 +205,7 @@ class _ConfigurableExpansionTileState extends State<ConfigurableExpansionTile>
     );
   }
 
+  /// Retrieves the header to display for the tile, derived from [_isExpanded] state
   Widget _getHeader() {
     if (!_isExpanded) {
       return widget.header;

@@ -1,8 +1,8 @@
 name: configurable_expansion_tile
-description: A new Flutter package project.
+description: A configurable Expansion Tile edited from the flutter material implementation that allows for customization
 version: 0.0.1
 author: Tyler Matthews <matthews.tyl@gmail.com>
-homepage:
+homepage: https://github.com/matthewstyler/configurable_expansion_tile
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
