@@ -1,5 +1,5 @@
 name: configurable_expansion_tile
-description: A configurable Expansion Tile edited from the flutter material implementation that allows for customization
+description: A Configurable Expansion Tile edited from the flutter material implementation that allows for customization
 version: 0.0.1
 author: Tyler Matthews <matthews.tyl@gmail.com>
 homepage: https://github.com/matthewstyler/configurable_expansion_tile
