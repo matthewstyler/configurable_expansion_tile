@@ -30,7 +30,11 @@ class ConfigurableExpansionTile extends StatefulWidget {
       this.bottomBorderOn = true,
       this.kExpand = const Duration(milliseconds: 200),
       this.headerBackgroundColorEnd,
-      this.headerExpanded})
+      this.headerExpanded,
+      this.headerAnimationTween,
+      this.borderAnimationTween,
+      this.animatedWidgetTurnTween,
+      this.animatedWidgetTween})
       : assert(initiallyExpanded != null),
         super(key: key);
 
@@ -87,6 +91,25 @@ class ConfigurableExpansionTile extends StatefulWidget {
   /// Turns the bottom border of the list on/off
   final bool bottomBorderOn;
 
+  /// Header transition tween
+  final Animatable<double> headerAnimationTween;
+
+  /// Border animation tween
+  final Animatable<double> borderAnimationTween;
+
+  /// Tween for turning [animatedWidgetFollowingHeader] and [animatedWidgetPrecedingHeader]
+  final Animatable<double> animatedWidgetTurnTween;
+
+  ///  [animatedWidgetFollowingHeader] and [animatedWidgetPrecedingHeader] transition tween
+  final Animatable<double> animatedWidgetTween;
+
+  static final Animatable<double> _easeInTween =
+      CurveTween(curve: Curves.easeIn);
+  static final Animatable<double> _halfTween =
+      Tween<double>(begin: 0.0, end: 0.5);
+
+  static final Animatable<double> _easeOutTween =
+      CurveTween(curve: Curves.easeOut);
   @override
   _ConfigurableExpansionTileState createState() =>
       _ConfigurableExpansionTileState();
@@ -94,11 +117,6 @@ class ConfigurableExpansionTile extends StatefulWidget {
 
 class _ConfigurableExpansionTileState extends State<ConfigurableExpansionTile>
     with SingleTickerProviderStateMixin {
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeIn);
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
-
   AnimationController _controller;
   Animation<double> _iconTurns;
   Animation<double> _heightFactor;
@@ -109,22 +127,25 @@ class _ConfigurableExpansionTileState extends State<ConfigurableExpansionTile>
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
 
-  static final Animatable<double> _easeOutTween =
-      CurveTween(curve: Curves.easeOut);
-
   bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(duration: widget.kExpand, vsync: this);
-    _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    _heightFactor = _controller.drive(ConfigurableExpansionTile._easeInTween);
+    _iconTurns = _controller.drive(
+        (widget.animatedWidgetTurnTween ?? ConfigurableExpansionTile._halfTween)
+            .chain(widget.animatedWidgetTween ??
+                ConfigurableExpansionTile._easeInTween));
 
-    _borderColor = _controller.drive(_borderColorTween.chain(_easeOutTween));
+    _borderColor = _controller.drive(_borderColorTween.chain(
+        widget.borderAnimationTween ??
+            ConfigurableExpansionTile._easeOutTween));
     _borderColorTween.end = widget.borderColorEnd;
 
-    _headerColor = _controller.drive(_headerColorTween.chain(_easeInTween));
+    _headerColor = _controller.drive(_headerColorTween.chain(
+        widget.headerAnimationTween ?? ConfigurableExpansionTile._easeInTween));
     _headerColorTween.end =
         widget.headerBackgroundColorEnd ?? widget.headerBackgroundColorStart;
     _isExpanded =

@@ -2,9 +2,11 @@
 
 A Configurable Expansion Tile edited from the flutter material implementation
 that allows for customization of the internal components. Includes providing colours,
-replacement widgets on expansion, and animation duration, among others.  
+replacement widgets on expansion, and custom animations.
 
-Tile animations still takes place, and a widget can be set to precede and/or follow the provided header, which will rotate on expand/collapse of the tile.
+Tile animations still takes place (which are also configurable), and a widget can be set to precede and/or follow the provided header, which will rotate on expand/collapse of the tile.
+
+Configure any or all parameters or leave default behaviour - header works out of the box.
 
 ## Installation
 
