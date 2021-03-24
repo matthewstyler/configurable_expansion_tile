@@ -9,3 +9,4 @@ ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
 .idea/
+example/ios/Flutter/flutter_export_environment.sh
