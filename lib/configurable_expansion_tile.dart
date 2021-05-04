@@ -15,12 +15,12 @@ class ConfigurableExpansionTile extends StatefulWidget {
   /// be specified for the animated transitions/states. [children] are revealed
   /// when the expansion tile is expanded.
   const ConfigurableExpansionTile(
-      {Key key,
+      {Key? key,
       this.headerBackgroundColorStart = Colors.transparent,
       this.onExpansionChanged,
       this.children = const <Widget>[],
       this.initiallyExpanded = false,
-      @required this.header,
+      required this.header,
       this.animatedWidgetFollowingHeader,
       this.animatedWidgetPrecedingHeader,
       this.expandedBackgroundColor,
@@ -35,15 +35,14 @@ class ConfigurableExpansionTile extends StatefulWidget {
       this.borderAnimationTween,
       this.animatedWidgetTurnTween,
       this.animatedWidgetTween})
-      : assert(initiallyExpanded != null),
-        super(key: key);
+      : super(key: key);
 
   /// Called when the tile expands or collapses.
   ///
   /// When the tile starts expanding, this function is called with the value
   /// true. When the tile starts collapsing, this function is called with
   /// the value false.
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
 
   /// The widgets that are displayed when the tile expands.
   ///
@@ -56,10 +55,10 @@ class ConfigurableExpansionTile extends StatefulWidget {
   final Color headerBackgroundColorStart;
 
   /// The [Color] the header will transition to on expand
-  final Color headerBackgroundColorEnd;
+  final Color? headerBackgroundColorEnd;
 
   /// The [Color] of the background of the [children] when expanded
-  final Color expandedBackgroundColor;
+  final Color? expandedBackgroundColor;
 
   /// Specifies if the list tile is initially expanded (true) or collapsed (false, the default).
   final bool initiallyExpanded;
@@ -68,13 +67,13 @@ class ConfigurableExpansionTile extends StatefulWidget {
   final Widget header;
 
   /// An optional widget to replace [header] with if the list is expanded
-  final Widget headerExpanded;
+  final Widget? headerExpanded;
 
   /// A widget to rotate following the [header] (ie an arrow)
-  final Widget animatedWidgetFollowingHeader;
+  final Widget? animatedWidgetFollowingHeader;
 
   /// A widget to rotate preceding the [header] (ie an arrow)
-  final Widget animatedWidgetPrecedingHeader;
+  final Widget? animatedWidgetPrecedingHeader;
 
   /// The duration of the animations
   final Duration kExpand;
@@ -92,16 +91,16 @@ class ConfigurableExpansionTile extends StatefulWidget {
   final bool bottomBorderOn;
 
   /// Header transition tween
-  final Animatable<double> headerAnimationTween;
+  final Animatable<double>? headerAnimationTween;
 
   /// Border animation tween
-  final Animatable<double> borderAnimationTween;
+  final Animatable<double>? borderAnimationTween;
 
   /// Tween for turning [animatedWidgetFollowingHeader] and [animatedWidgetPrecedingHeader]
-  final Animatable<double> animatedWidgetTurnTween;
+  final Animatable<double>? animatedWidgetTurnTween;
 
   ///  [animatedWidgetFollowingHeader] and [animatedWidgetPrecedingHeader] transition tween
-  final Animatable<double> animatedWidgetTween;
+  final Animatable<double>? animatedWidgetTween;
 
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeIn);
@@ -117,12 +116,12 @@ class ConfigurableExpansionTile extends StatefulWidget {
 
 class _ConfigurableExpansionTileState extends State<ConfigurableExpansionTile>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _iconTurns;
-  Animation<double> _heightFactor;
+  late AnimationController _controller;
+  late Animation<double> _iconTurns;
+  late Animation<double> _heightFactor;
 
-  Animation<Color> _borderColor;
-  Animation<Color> _headerColor;
+  late Animation<Color?> _borderColor;
+  Animation<Color?>? _headerColor;
 
   final ColorTween _borderColorTween = ColorTween();
   final ColorTween _headerColorTween = ColorTween();
@@ -175,10 +174,10 @@ class _ConfigurableExpansionTileState extends State<ConfigurableExpansionTile>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged!(_isExpanded);
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     final Color borderSideColor = _borderColor.value ?? widget.borderColorStart;
     final Color headerColor =
         _headerColor?.value ?? widget.headerBackgroundColorStart;
